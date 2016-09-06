@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it was copy-pasted
+include_once("db.php"); //Includes db.php file as if it was copy-pasted
 
 if(isset($_POST['login'])) {
     $username = strip_tags($_POST['username']);

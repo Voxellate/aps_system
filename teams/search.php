@@ -25,14 +25,20 @@
 
 </head>
 <body>
+<h1>Team Search</h1>
+<p>Choose a team from the drop-down list</p><br>
+<h6><b>Sport:</b></h6>
+<form method='POST'>
+    <select name='sport_options' onchange='this.form.submit()'>
+        <option disabled selected>Select One</option>
+        <?php
+        $sql = dbquery("SELECT sportName FROM sports");
+        while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
+        ?>
+    </select>
+</form>
 
 <?php
-echo "<h1>Team Search</h1><p>Choose a team from the drop-down list</p><br><h6><b>Sport:</b></h6>";
-echo "<form method='POST'><select name='sport_options' onchange='this.form.submit()'><option disabled selected>Select One</option>";
-$sql = dbquery("SELECT sportName FROM sports");
-while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
-echo "</select></form>";
-
 if(isset($_POST['sport_options'])){
     echo "<br><b>Teams for " . $_POST['sport_options'] . ":</b>";
     echo "<form method='POST'><select name='team_options' onchange='this.form.submit()'><option selected disabled>Select One</option>";
@@ -54,7 +60,6 @@ if(isset($_POST['team_options'])){
     echo "</table>";
 }
 ?>
-
     <br><form method="GET">
         <input type="submit" name="index" value="Main Menu"/>
         <input type="submit" name="logout" value="Logout"/>

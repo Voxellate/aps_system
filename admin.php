@@ -5,8 +5,8 @@ if(!isset($_SESSION['id'])){
     header("Location: login.php");
     die();
 } else if($_SESSION['id'] != 1){
-	header("Location: index.php");
-    die();	
+    header("Location: index.php");
+    die();
 }
 
 if(isset($_POST['logout'])){
@@ -19,6 +19,18 @@ if(isset($_POST['teamsearch'])){
 
 if(isset($_POST['playersearch'])){
     header("Location: students/search.php");
+}
+
+if(isset($_POST['sportedit'])){
+    header("Location: sports/edit.php");
+}
+
+if(isset($_POST['teamedit'])){
+    header("Location: teams/edit.php");
+}
+
+if(isset($_POST['playeredit'])){
+    header("Location: students/edit.php");
 }
 ?>
 
@@ -35,7 +47,8 @@ if(isset($_POST['playersearch'])){
 <h1>Admin Menu</h1>
 <br><form method="POST">
     <input type="submit" name="teamedit" value="Edit Teams"/>
-    <input type="submit" name="playeredit" value="Edit Players">
+    <input type="submit" name="playeredit" value="Edit Players"/>
+    <input type="submit" name="sportedit" value="Edit Sports"/>
     <br><br>
     <input type="submit" name="teamsearch" value="Team Search"/>
     <input type="submit" name="playersearch" value="Player Search"/>
