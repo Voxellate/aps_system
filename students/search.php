@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Name Storage</title>
+    <title>Search Players</title>
 </head>
 <body>
 <h1>Player Search</h1>

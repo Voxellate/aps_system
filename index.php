@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once("db.php"); //Includes db.php file as if it was copy-pasted
+	include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it was copy-pasted
 
     if(!isset($_SESSION['id'])){
         header("Location: login.php");
