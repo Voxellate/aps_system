@@ -1,12 +1,16 @@
 <?php
     session_start();
-	include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it was copy-pasted
+	include_once("db.php"); //Includes db.php file as if it was copy-pasted
+    include_once("navbar.php"); //Includes navbar.php file as if it was copy-pasted
+
 
     if(!isset($_SESSION['id'])){
         header("Location: login.php");
         die();
+    } else if($_SESSION['id'] == 1) {
+        header("Location: admin.php");
+        die();
     }
-
 	if(isset($_POST['logout'])){
     	header("Location: logout.php");
 	}
@@ -16,27 +20,26 @@
     }
 
     if(isset($_POST['playersearch'])){
-        header("Location: students/search.php");
+        header("Location: players/search.php");
     }
+
+    echo $navbar;
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>APS System</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
+<?php echo $navbar; ?>
 
-    <h1>Main Menu</h1>
-    <br><form method="POST">
-        <input type="submit" name="teamsearch" value="Team Search"/>
-        <input type="submit" name="playersearch" value="Player Search"/>
-        <input type="submit" name="logout" value="Logout"/>
-    </form>
-
+<h1>APS Sport Selection System</h1>
+<h4>Press a button on the navbar to start</h4>
 </body>
 </html>
 

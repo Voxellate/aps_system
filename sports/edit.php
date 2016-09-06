@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it was copy-pasted
+include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as if it was copy-pasted
 
 if(!isset($_SESSION['id'])){
     header("Location: login.php");
@@ -14,11 +15,13 @@ if(!isset($_SESSION['id'])){
 <html>
 <head>
     <title>Edit Sports</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-
+<?php echo $navbar_admin; ?>
 <h1>Add Sport</h1>
 <?php
 if(isset($_POST['add_submit'])){
@@ -27,7 +30,7 @@ if(isset($_POST['add_submit'])){
 } else {echo "Please enter a value";}
 ?>
 <form name="sport_add" method="POST">
-	<input type="text" name="sportname" placeholder="First Name">
+	<input type="text" name="sportname" placeholder="Sport Name">
     <input type="submit" name="add_submit" value="Add Sport">
 </form>
 
@@ -38,7 +41,7 @@ if (isset($_POST['remove_options'])){
     dbquery("UPDATE students SET teamName = NULL WHERE sportName = '{$_POST['remove_options']}'");
     dbquery("UPDATE students SET sportName = NULL WHERE sportName = '{$_POST['remove_options']}'");
     dbquery("DELETE FROM teams WHERE sportName = '{$_POST['remove_options']}'");
-    echo $_POST['remove_options']." removed successfully. Affected students have been updated, and affected teams have been removed.";
+    echo $_POST['remove_options']." removed successfully. Affected players have been updated, and affected teams have been removed.";
 
 } else {echo "Please select a sport";}
 ?>
