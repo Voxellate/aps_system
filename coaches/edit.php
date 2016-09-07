@@ -4,7 +4,7 @@ include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it wa
 include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as if it was copy-pasted
 
 if(!isset($_SESSION['id'])){
-    header("Location: login.php");
+    header("Location: " . dirname(__FILE__)."/../login.php");
     die();
 }?>
     <!doctype html>
@@ -43,6 +43,7 @@ if(isset($_POST['add_team_options'])){	//If the Team Options form is submitted..
     echo "Coach added and assigned to team";
 }
 ?>
+
 <h1>Remove Coaches</h1>
 <form class='form-inline' method='POST'>	<!-- Remove Coach form -->
     <select class='form-control' name='remove_sport_options' onchange='this.form.submit()'>

@@ -35,8 +35,9 @@ if (isset($_POST['submit'])) {	//If the submit button has been pressed...
     <tr><td><br><b>Year Level:</b></td><td><input type='number' name='yearLevel' min='7' max='12'></td></tr>
     <tr><td><b>Sport Selection:</b></td><td><select class='form-control' name='sport_options'>
         <option disabled selected>Select One</option>";
-        $sql = dbquery("SELECT sportName FROM sports");
-        while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
+        $sql = dbquery("SELECT sportName FROM sports"); //Query sports for indexs' sportName
+        while($row = mysqli_fetch_assoc($sql)){ //For each index in sports...
+            echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}    //Create a drop-down option
         echo "</select></td></tr><tr><td><input type='submit' name='submit' value='Next'></td></tr></table></form>";}
 ?>
 </body>

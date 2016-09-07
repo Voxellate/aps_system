@@ -24,13 +24,13 @@ if(!isset($_SESSION['id'])){
 <?php echo $navbar_admin; ?>
 <h1>Add Team</h1>
 <?php
-if(isset($_POST['add_submit'])){
-    if ($_POST['add_gender'] == "Male"){$gender = "Boys";} else {$gender = "Girls";}
-    $teamname = $gender . " " . $_POST['add_team'];
-    dbquery("INSERT INTO teams (teamName, sportName, teamGender) VALUES ('$teamname','{$_POST['add_sports']}','{$_POST['add_gender']}')");
+if(isset($_POST['add_submit'])){    //if add_team form submitted...
+    if ($_POST['add_gender'] == "Male"){$gender = "Boys";} else {$gender = "Girls";}    //Determine $gender from selected option
+    $teamname = $gender . " " . $_POST['add_team']; //Determine $teamname
+    dbquery("INSERT INTO teams (teamName, sportName, teamGender) VALUES ('$teamname','{$_POST['add_sports']}','{$_POST['add_gender']}')");  //Add a new team to teams with selected options
     echo $teamname . " " . $_POST['add_sports'] ." added successfully";
 }?>
-<form class='form-inline' name="team_add" method="POST">
+<form class='form-inline' name="team_add" method="POST">    <!-- add_team form -->
     <select class='form-control' name="add_team">
         <option selected disabled>Select Bracket</option>
         <option name="Year 7/8">Year 7/8</option>
@@ -42,8 +42,9 @@ if(isset($_POST['add_submit'])){
     <select class='form-control' name="add_sports">
         <option selected disabled>Select Sport</option>
         <?php
-        $sql = dbquery("SELECT sportName FROM sports");
-        while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
+        $sql = dbquery("SELECT sportName FROM sports"); //Query sports for sportName of indexes
+        while($row = mysqli_fetch_assoc($sql)){ //For each index in sports...
+            echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}    //Create a drop-down option
         ?>
     </select>
     <select class='form-control' name="add_gender">
@@ -55,16 +56,16 @@ if(isset($_POST['add_submit'])){
 </form>
 <h1>Remove Team</h1>
 <?php
-if(isset($_POST['remove_submit'])){
-    if ($_POST['remove_gender'] == "Male"){$gender = "Boys";} else {$gender = "Girls";}
-    $teamname = $gender . " " . $_POST['remove_team'];
-    dbquery("DELETE FROM teams WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}' AND teamGender = '{$_POST['remove_gender']}'");
-    dbquery("UPDATE students SET sportName = null WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}'");
-    dbquery("UPDATE students SET teamName = null WHERE sportName IS null");
+if(isset($_POST['remove_submit'])){ //If remove_team form submitted...
+    if ($_POST['remove_gender'] == "Male"){$gender = "Boys";} else {$gender = "Girls";}    //Determine $gender from selected option
+    $teamname = $gender . " " . $_POST['remove_team']; //Determine $teamname
+    dbquery("DELETE FROM teams WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}' AND teamGender = '{$_POST['remove_gender']}'"); //Delete selected team from teams
+    dbquery("UPDATE students SET sportName = null WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}'");   //Set sportName of students in that team to null
+    dbquery("UPDATE students SET teamName = null WHERE sportName IS null"); //Set teamName of indexes with null sports to null.
 
     echo $teamname . " " . $_POST['remove_sports'] ." removed successfully";
 }?>
-<form class='form-inline' name="team_remove" method="POST">
+<form class='form-inline' name="team_remove" method="POST"> <!-- remove_team form -->
     <select class='form-control' name="remove_team">
         <option selected disabled>Select Bracket</option>
         <option name="Year 7/8">Year 7/8</option>
@@ -76,8 +77,9 @@ if(isset($_POST['remove_submit'])){
     <select class='form-control' name="remove_sports">
         <option selected disabled>Select Sport</option>
         <?php
-        $sql = dbquery("SELECT sportName FROM sports");
-        while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
+        $sql = dbquery("SELECT sportName FROM sports");  //Query sports for sportName of indexes
+        while($row = mysqli_fetch_assoc($sql)){ //For each index in sports...
+            echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}    //Create a drop-down option
         ?>
     </select>
     <select class='form-control' name="remove_gender">

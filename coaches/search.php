@@ -4,7 +4,7 @@
 include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as if it was copy-pasted
 
     if (!isset($_SESSION['id'])){
-        header("Location: index.php");
+        header("Location: " . dirname(__FILE__)."/../login.php");
     }
 ?>
 

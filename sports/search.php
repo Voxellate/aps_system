@@ -4,7 +4,7 @@ include_once(dirname(__FILE__)."/../db.php"); //Includes db.php file as if it wa
 include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as if it was copy-pasted
 
 if (!isset($_SESSION['id'])){
-    header("Location: index.php");
+    header("Location: " . dirname(__FILE__)."/../login.php");
 }
 ?>
 
@@ -21,11 +21,11 @@ if (!isset($_SESSION['id'])){
 
 <h1>Sport Search</h1>
 <?php
-$sql = dbquery("SELECT * FROM sports ORDER BY sportName");
-if (mysqli_num_rows($sql) > 0) {
+$sql = dbquery("SELECT * FROM sports ORDER BY sportName");  //Query sportName for indexes
+if (mysqli_num_rows($sql) > 0) {    //If there is at least one index...
     echo "<table class=\"table\"><tr><td><b>Sport Name</b></td></tr>";
-    while ($row = mysqli_fetch_assoc($sql)) {
-        echo "<tr><td>" . $row['sportName'] . "</td></tr>";
+    while ($row = mysqli_fetch_assoc($sql)) {   //For each index...
+        echo "<tr><td>" . $row['sportName'] . "</td></tr>"; //Create a table row
     }
     echo "</table>";
 } else {
