@@ -16,10 +16,10 @@ if(!isset($_SESSION['id'])){
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 <body>
-<?php echo $navbar_admin; ?>]
+<?php echo $navbar_admin; ?>
 <h1>Add Players</h1>
-<form method='POST'>
-    <select name='add_sport_options' onchange='this.form.submit()'>
+<form class='form-inline' method='POST'>
+    <select class='form-control' name='add_sport_options' onchange='this.form.submit()'>
         <option disabled selected>Select Sport</option>
         <?php
         $sql = dbquery("SELECT sportName FROM sports");
@@ -30,7 +30,7 @@ if(!isset($_SESSION['id'])){
 
 <?php
 if(isset($_POST['add_sport_options'])){
-    echo "<form method='POST'><select name='team_options'><option selected disabled>Select Team</option>";
+    echo "<form class='form-inline' method='POST'><select class='form-control' name='add_team_options'><option selected disabled>Select Team</option>";
     $sql = dbquery("SELECT * FROM teams WHERE sportName = '{$_POST['add_sport_options']}'");
     while($row = mysqli_fetch_assoc($sql)){
         echo "<option name='{$row['teamName']}'>{$row['teamName']}</option>";
@@ -39,14 +39,14 @@ if(isset($_POST['add_sport_options'])){
     $_SESSION['sport'] = $_POST['add_sport_options'];
 }
 if(isset($_POST['add_team_options'])){
-    dbquery("UPDATE players SET sportName = '{$_SESSION['sport']}' WHERE firstName = '{$_POST['firstname']}' AND lastName = '{$_POST['lastname']}'");
-    dbquery("UPDATE players SET teamName = '{$_POST['add_team_options']}' WHERE firstName = '{$_POST['firstname']}' AND lastName = '{$_POST['lastname']}'");
+    dbquery("UPDATE students SET sportName = '{$_SESSION['sport']}' WHERE firstName = '{$_POST['firstname']}' AND lastName = '{$_POST['lastname']}'");
+    dbquery("UPDATE students SET teamName = '{$_POST['add_team_options']}' WHERE firstName = '{$_POST['firstname']}' AND lastName = '{$_POST['lastname']}'");
     echo "Player added to team";
 }
 ?>
 <h1>Remove Players</h1>
-<form method='POST'>
-    <select name='remove_sport_options' onchange='this.form.submit()'>
+<form class='form-inline' method='POST'>
+    <select class='form-control' name='remove_sport_options' onchange='this.form.submit()'>
         <option disabled selected>Select Sport</option>
         <?php
         $sql = dbquery("SELECT sportName FROM sports");
@@ -57,7 +57,7 @@ if(isset($_POST['add_team_options'])){
 <?php
 if(isset($_POST['remove_sport_options']) and $_POST['remove_sport_options'] != "Select Sport"){
     echo "<br><b>Teams for " . $_POST['remove_sport_options'] . ":</b>";
-    echo "<form method='POST'><select name='team_options' onchange='this.form.submit()'><option selected disabled>Select One</option>";
+    echo "<form class='form-inline' method='POST'><select class='form-control' name='remove_team_options' onchange='this.form.submit()'><option selected disabled>Select One</option>";
     $sql = dbquery("SELECT * FROM teams WHERE sportName = '{$_POST['remove_sport_options']}'");
     while($row = mysqli_fetch_assoc($sql)){
         echo "<option name='{$row['teamName']}'>{$row['teamName']}</option>";
@@ -66,10 +66,10 @@ if(isset($_POST['remove_sport_options']) and $_POST['remove_sport_options'] != "
     $_SESSION['sport'] = $_POST['remove_sport_options'];
 }
 
-if(isset($_POST['team_options'])){
-    echo "<br><b>Players for " . $_POST['team_options'] . ":</b>";
-    echo "<form method='POST'><select name='player_options'><option selected disabled>Select Player</option>";
-    $sql = dbquery("SELECT id, firstName, lastName FROM players WHERE teamName = '{$_POST['team_options']}' AND sportName = '{$_SESSION['sport']}'");
+if(isset($_POST['remove_team_options'])){
+    echo "<br><b>Players for " . $_POST['remove_team_options'] . ":</b>";
+    echo "<form class='form-inline' method='POST'><select class='form-control' name='player_options'><option selected disabled>Select Player</option>";
+    $sql = dbquery("SELECT id, firstName, lastName FROM students WHERE teamName = '{$_POST['remove_team_options']}' AND sportName = '{$_SESSION['sport']}'");
     while($row = mysqli_fetch_assoc($sql)){
         $fullname = $row['firstName'] . " " . $row['lastName'];
         echo "<option name='{$row['id']}'>$fullname</option>";
@@ -79,8 +79,8 @@ if(isset($_POST['team_options'])){
 
 if(isset($_POST['player_options'])) {
     $name = explode(" ", $_POST['player_options']);
-    dbquery("UPDATE players SET sportName = null WHERE firstName = '{$name[0]}' AND lastName = '{$name[1]}'");
-    dbquery("UPDATE players SET teamName = null WHERE sportName IS null");
+    dbquery("UPDATE students SET sportName = null WHERE firstName = '{$name[0]}' AND lastName = '{$name[1]}'");
+    dbquery("UPDATE students SET teamName = null WHERE sportName IS null");
     echo "Player removed";
 }
 ?>

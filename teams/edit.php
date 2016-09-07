@@ -14,7 +14,7 @@ if(!isset($_SESSION['id'])){
 <!doctype html>
 <html>
 <head>
-    <title>Edit Teams</title>
+    <title>Edit Players</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -30,8 +30,8 @@ if(isset($_POST['add_submit'])){
     dbquery("INSERT INTO teams (teamName, sportName, teamGender) VALUES ('$teamname','{$_POST['add_sports']}','{$_POST['add_gender']}')");
     echo $teamname . " " . $_POST['add_sports'] ." added successfully";
 }?>
-<form name="team_add" method="POST">
-    <select name="add_team">
+<form class='form-inline' name="team_add" method="POST">
+    <select class='form-control' name="add_team">
         <option selected disabled>Select Bracket</option>
         <option name="Year 7/8">Year 7/8</option>
         <option name="Year 9">Year 9</option>
@@ -39,19 +39,19 @@ if(isset($_POST['add_submit'])){
         <option name="Open B">Open B</option>
         <option name="Open A">Open A</option>
     </select>
-    <select name="add_sports">
+    <select class='form-control' name="add_sports">
         <option selected disabled>Select Sport</option>
         <?php
         $sql = dbquery("SELECT sportName FROM sports");
         while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
         ?>
     </select>
-    <select name="add_gender">
+    <select class='form-control' name="add_gender">
         <option selected disabled>Select Gender</option>
         <option name="Male">Male</option>
         <option name="Female">Female</option>
     </select>
-    <input type="submit" name="add_submit" value="Add Team">
+    <input class="btn btn-default" type="submit" name="add_submit" value="Add Team">
 </form>
 <h1>Remove Team</h1>
 <?php
@@ -59,13 +59,13 @@ if(isset($_POST['remove_submit'])){
     if ($_POST['remove_gender'] == "Male"){$gender = "Boys";} else {$gender = "Girls";}
     $teamname = $gender . " " . $_POST['remove_team'];
     dbquery("DELETE FROM teams WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}' AND teamGender = '{$_POST['remove_gender']}'");
-    dbquery("UPDATE players SET sportName = null WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}'");
-    dbquery("UPDATE players SET teamName = null WHERE sportName IS null");
+    dbquery("UPDATE students SET sportName = null WHERE teamName = '$teamname' AND sportName = '{$_POST['remove_sports']}'");
+    dbquery("UPDATE students SET teamName = null WHERE sportName IS null");
 
     echo $teamname . " " . $_POST['remove_sports'] ." removed successfully";
 }?>
-<form name="team_remove" method="POST">
-    <select name="remove_team">
+<form class='form-inline' name="team_remove" method="POST">
+    <select class='form-control' name="remove_team">
         <option selected disabled>Select Bracket</option>
         <option name="Year 7/8">Year 7/8</option>
         <option name="Year 9">Year 9</option>
@@ -73,19 +73,19 @@ if(isset($_POST['remove_submit'])){
         <option name="Open B">Open B</option>
         <option name="Open A">Open A</option>
     </select>
-    <select name="remove_sports">
+    <select class='form-control' name="remove_sports">
         <option selected disabled>Select Sport</option>
         <?php
         $sql = dbquery("SELECT sportName FROM sports");
         while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
         ?>
     </select>
-    <select name="remove_gender">
+    <select class='form-control' name="remove_gender">
         <option selected disabled>Select Gender</option>
         <option name="Male">Male</option>
         <option name="Female">Female</option>
     </select>
-    <input type="submit" name="remove_submit" value="Remove Team">
+    <input class="btn btn-default" type="submit" name="remove_submit" value="Remove Team">
 </form>
 </body>
 </html>

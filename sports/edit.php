@@ -29,9 +29,9 @@ if(isset($_POST['add_submit'])){
     echo $_POST['sportname']." added successfully";
 } else {echo "Please enter a value";}
 ?>
-<form name="sport_add" method="POST">
+<form class='form-inline' name="sport_add" method="POST">
 	<input type="text" name="sportname" placeholder="Sport Name">
-    <input type="submit" name="add_submit" value="Add Sport">
+    <input class="btn btn-default" type="submit" name="add_submit" value="Add Sport">
 </form>
 
 <h1>Remove Sport</h1>
@@ -45,15 +45,15 @@ if (isset($_POST['remove_options'])){
 
 } else {echo "Please select a sport";}
 ?>
-<form name="sport_remove" method="POST">
-    <select name="remove_options">
+<form class='form-inline' name="sport_remove" method="POST">
+    <select class='form-control' name="remove_options">
         <option selected disabled>Select One</option>
         <?php
         $sql = dbquery("SELECT sportName FROM sports");
         while($row = mysqli_fetch_assoc($sql)){echo "<option name='{$row['sportName']}'>{$row['sportName']}</option>";}
         ?>
     </select>
-    <input type="submit" name="remove_submit" value="Remove Sport" onclick="return confirm('Are you sure you want to delete this sport from the database?');">
+    <input class="btn btn-default" type="submit" name="remove_submit" value="Remove Sport" onclick="return confirm('Are you sure you want to delete this sport from the database?');">
 </form>
 </body>
 </html>

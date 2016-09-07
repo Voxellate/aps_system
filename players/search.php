@@ -20,11 +20,11 @@ include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as 
 <?php if($_SESSION['id'] == 1) {echo $navbar_admin;} else {echo $navbar;} ?>
 
 <h1>Player Search</h1>
-<form method="GET">
+<form class='form-inline' method="GET">
     <input type="text" name="firstname" placeholder="First Name">
     <input type="text" name="lastname" placeholder="Last Name">
     <input type="text" name="yearlevel" placeholder="Year Level">
-    <select name="sportname" placeholder="Sport">
+    <select class='form-control' name="sportname" placeholder="Sport">
         <option selected disabled>Sport</option>
         <?php
         $sql = dbquery("SELECT DISTINCT sportName FROM sports");
@@ -33,7 +33,7 @@ include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as 
         }
         ?>
     </select>
-    <select name="teamname" placeholder="Team Name">
+    <select class='form-control' name="teamname" placeholder="Team Name">
         <option selected disabled>Team</option>
         <?php
         $sql = dbquery("SELECT DISTINCT teamName FROM teams");
@@ -41,8 +41,8 @@ include_once(dirname(__FILE__)."/../navbar.php"); //Includes navbar.php file as 
               echo "<option name='{$row['teamName']}'>{$row['teamName']}</option>";
         }?>
      </select>
-    <input type="submit" name="search" value="Search">
-    <input type="submit" name="reset" value="Reset">
+    <input class="btn btn-default" type="submit" name="search" value="Search">
+    <input class="btn btn-default" type="submit" name="reset" value="Reset">
 </form>
 
 <?php
@@ -50,7 +50,7 @@ if (isset($_GET['reset'])) {header("Location: edit.php");}
 
 if (isset($_GET['search'])) {
 
-    $query = "SELECT * FROM players WHERE id>0";
+    $query = "SELECT * FROM students WHERE id>0";
     if(!empty($_GET['firstname'])){$query .= " AND firstName='{$_GET['firstname']}'";}
     if(!empty($_GET['lastname'])){$query .= " AND lastName='{$_GET['lastname']}'";}
     if(!empty($_GET['yearlevel'])){$query .= " AND yearLevel='{$_GET['yearlevel']}'";}

@@ -9,32 +9,7 @@ if(!isset($_SESSION['id'])){
 } else if($_SESSION['id'] != 1){
     header("Location: index.php");
     die();
-}
-
-if(isset($_POST['logout'])){
-    header("Location: logout.php");
-}
-
-if(isset($_POST['teamsearch'])){
-    header("Location: teams/search.php");
-}
-
-if(isset($_POST['playersearch'])){
-    header("Location: players/search.php");
-}
-
-if(isset($_POST['sportedit'])){
-    header("Location: sports/edit.php");
-}
-
-if(isset($_POST['teamedit'])){
-    header("Location: teams/edit.php");
-}
-
-if(isset($_POST['playeredit'])){
-    header("Location: players/edit.php");
-}
-?>
+}?>
 
 <!DOCTYPE html>
 <html>
@@ -46,16 +21,16 @@ if(isset($_POST['playeredit'])){
 
 </head>
 <body>
-<?php echo $navbar_admin; ?>
+<?php echo $navbar_admin; //Prints the admin navbar?>
 
 <h1>Admin Menu</h1>
 <h4>The following students do not have a sport/team:</h4>
 
 <table class="table"><tr><td><b>First Name</b></td><td><b>Last Name</b></td><td><b>Gender</b></td><td><b>Year Level</b></td><td><b>Sport Name</b></td><td><b>Team Name</b></td></tr>
 <?php
-$sql = dbquery("SELECT * FROM students WHERE sportName IS null OR teamName IS null");
-while ($row = mysqli_fetch_assoc($sql)) {
-    echo "<tr><td>" . $row['firstName'] . "</td><td>" . $row['lastName'] . "</td><td>" . $row['gender'] . "</td><td>" . $row['yearLevel'] . "</td><td>" . $row['sportName'] . "</td><td>" . $row['teamName'] . "</td></tr>";
+$sql = dbquery("SELECT * FROM students WHERE sportName IS null OR teamName IS null"); //Queries the database for 'students' indexes where there is no sportname or teamname
+while ($row = mysqli_fetch_assoc($sql)) { //Whilst there are entries in the query array...
+    echo "<tr><td>" . $row['firstName'] . "</td><td>" . $row['lastName'] . "</td><td>" . $row['gender'] . "</td><td>" . $row['yearLevel'] . "</td><td>" . $row['sportName'] . "</td><td>" . $row['teamName'] . "</td></tr>"; // Print a new row in the table
 }
 ?>
     </table>

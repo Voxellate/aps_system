@@ -1,4 +1,4 @@
-<?php
+<?php	//This page contains the HTML and CSS code for the navbar. There is a seperate navbar for admins with extra options.
 $navbar = "<nav class=\"navbar navbar-default\">
     <div class=\"container-fluid\">
         <!-- Brand and toggle get grouped for better mobile display -->
