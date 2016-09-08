@@ -23,6 +23,20 @@ if(!isset($_SESSION['id'])){
 <body>
 <?php echo $navbar_admin; //Prints the admin navbar?>
 
+<?php
+if (isset($_POST['email_address'])) {	//If the email form has been submitted…
+    mail($_POST['email_address'], 'APS Sport Selection', "<html><body>Hello, <br> Your Director of activities has requested that you select your sport preference. You can do this by accessing the form <a href='http://localhost/aps_system/selection.php'>Here</a>.</body></html>"); //Send an email to that address
+echo "Email sent.";
+}
+?>
+
+<h4>Send a Sport Selection Email:</h4>
+<form class='form-inline' name="email_form" method="POST">
+    <input class='form-control' type="text" name=”email_address”>
+    <input class='form-control' type='submit' name='email_submit'>
+</form>
+
+
 <h1>Admin Menu</h1>
 <h4>The following students do not have a sport/team:</h4>
 
